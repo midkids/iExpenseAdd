@@ -5,6 +5,7 @@
 //  Created by Myron Snelson on 5/6/26.
 //
 
+import SwiftData
 import SwiftUI
 
 struct AddView: View {
@@ -45,10 +46,9 @@ struct AddView: View {
     // RESULT: both view will watch for changes
     // IMPORTANT: Both the ContentView and the AddView
     //   will share the same list of expense items
-    var expenses: Expenses
+    @Bindable var expenses: Expenses
     
     let types = ["Personal", "Business"]
-    
     
     var body: some View {
         Form {
@@ -90,5 +90,25 @@ struct AddView: View {
     // Our expenses will be a new Expenses object
     // That works because:
     // it is just for preview purposes
-    AddView(expenses: Expenses())
-}
+    // AddView(expenses: Expenses())
+    
+    do {
+        // make custom configuration
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        
+        // make a container for our model object type and
+        // the custom configuration we just made above
+        let container = try ModelContainer(for: Expenses.self, configurations: config)
+        
+        // make a sample user object
+        let expenseItem = ExpenseItem(name: "Bill", type: "Personal", amount: 1.00)
+        let expenses = Expenses(items: [expenseItem])
+        
+        // Now we can send back an EditUserView with the
+        // above user and container
+        return AddView(expenses: expenses)
+            .modelContainer(container)
+    } catch {
+        return Text("Failed to create container: \(error.localizedDescription)")
+    }
+ }

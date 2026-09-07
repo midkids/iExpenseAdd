@@ -6,15 +6,18 @@
 //
 
 import Foundation
-import Observation
+import SwiftData
 
 // Clases the use the observable protocol,
 //  can be used in more than one SwiftUI view
 //  and all of those views will be updated
 //  when the relevant properties of the object changes
-@Observable
+@Model
 class Expenses {
-    var items = [ExpenseItem]() {
+    var items = [ExpenseItem]()
+    
+    /*
+    {
         didSet {
             // To correctly save our items correctly:
             // 1) make a JSON encoder
@@ -27,25 +30,31 @@ class Expenses {
             }
         }
     }
+     */
+    
     // custom initializer
-    init() {
-        // To load our items correctly:
-        // 1) check to see if UserDefaults is there for key "Items"
-        // 2) if it is there, try to decode the UserDefaults data
-        //    into an array of ExpenseItems
-        //    The .self is needed because SwiftUI needs to know
-        //    we are referring to the type ExpenseItem itself
-        //    That is, give me an array of ExpenseItems as a type
-        // 3) store the loaded data into items property of
-        //    the Expenses class
-        if let savedItems = UserDefaults.standard.data(forKey: "Items") {
-            if let decodedItems = try? JSONDecoder().decode([ExpenseItem].self, from: savedItems) {
-                items = decodedItems
-                return
-            }
-        }
-        // If either of the two actions above fail
-        // make items an empty array
-        items = []
+    init(items: [ExpenseItem] = []) {
+        self.items = items
     }
+    
+    /*
+    // To load our items correctly:
+    // 1) check to see if UserDefaults is there for key "Items"
+    // 2) if it is there, try to decode the UserDefaults data
+    //    into an array of ExpenseItems
+    //    The .self is needed because SwiftUI needs to know
+    //    we are referring to the type ExpenseItem itself
+    //    That is, give me an array of ExpenseItems as a type
+    // 3) store the loaded data into items property of
+    //    the Expenses class
+    if let savedItems = UserDefaults.standard.data(forKey: "Items") {
+        if let decodedItems = try? JSONDecoder().decode([ExpenseItem].self, from: savedItems) {
+            items = decodedItems
+            return
+        }
+    }
+    // If either of the two actions above fail
+    // make items an empty array
+     */
 }
+
