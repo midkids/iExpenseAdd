@@ -6,7 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		2CA52889304E415F00C91C40 /* Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52888304E415F00C91C40 /* Expenses.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
+		2CA52888304E415F00C91C40 /* Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expenses.swift; sourceTree = "<group>"; };
 		2CD647CD2FA04056008F7CAD /* iExpenseAdd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iExpenseAdd.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -34,6 +39,7 @@
 			children = (
 				2CD647CF2FA04056008F7CAD /* iExpenseAdd */,
 				2CD647CE2FA04056008F7CAD /* Products */,
+				2CA52888304E415F00C91C40 /* Expenses.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,7 +91,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2CD647C82FA04056008F7CAD /* Build configuration list for PBXProject "iExpenseAddAdd" */;
+			buildConfigurationList = 2CD647C82FA04056008F7CAD /* Build configuration list for PBXProject "iExpenseAdd" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -119,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CA52889304E415F00C91C40 /* Expenses.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2CD647C82FA04056008F7CAD /* Build configuration list for PBXProject "iExpenseAddAdd" */ = {
+		2CD647C82FA04056008F7CAD /* Build configuration list for PBXProject "iExpenseAdd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CD647D62FA04058008F7CAD /* Debug */,
