@@ -14,6 +14,8 @@ struct iExpenseAddApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: Expenses.self)
+        // Step 2 - Add a model container in our
+        // main project app
+        .modelContainer(for: ExpenseItem.self)
     }
 }

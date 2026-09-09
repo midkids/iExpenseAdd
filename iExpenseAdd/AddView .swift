@@ -37,16 +37,7 @@ struct AddView: View {
     @State private var type = "Personal"
     @State private var amount = 0.0
     
-    // The AddView expects to be made with
-    // an Expenses object that is shared with it
-    // upon instantiation
-    // IMPORTANT: Both views will share the same
-    // observable class
-    // (made observable in ContentView)
-    // RESULT: both view will watch for changes
-    // IMPORTANT: Both the ContentView and the AddView
-    //   will share the same list of expense items
-    @Bindable var expenses: Expenses
+    @Environment(\.modelContext) var modelContext
     
     let types = ["Personal", "Business"]
     
@@ -69,7 +60,7 @@ struct AddView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save") {
                     let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expenses.items.append(item)
+                    modelContext.insert(item)
                     // Returns to the expense list after saving.
                     dismiss()
                 }
@@ -87,26 +78,20 @@ struct AddView: View {
 }
 
 #Preview {
-    // Our expenses will be a new Expenses object
-    // That works because:
-    // it is just for preview purposes
-    // AddView(expenses: Expenses())
-    
+    // Step 4 - To use the Xcode Preview, you
+    // must pass a sample object in and return
+    // the AddView
     do {
         // make custom configuration
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         
         // make a container for our model object type and
         // the custom configuration we just made above
-        let container = try ModelContainer(for: Expenses.self, configurations: config)
+        let container = try ModelContainer(for: ExpenseItem.self, configurations: config)
         
-        // make a sample user object
-        let expenseItem = ExpenseItem(name: "Bill", type: "Personal", amount: 1.00)
-        let expenses = Expenses(items: [expenseItem])
-        
-        // Now we can send back an EditUserView with the
-        // above user and container
-        return AddView(expenses: expenses)
+        // Now we can send back an AddView with the
+        // above container
+        return AddView()
             .modelContainer(container)
     } catch {
         return Text("Failed to create container: \(error.localizedDescription)")

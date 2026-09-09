@@ -8,6 +8,7 @@
 // specifically to do the challenges in
 // Project 12 (Day 59)
 
+import SwiftData
 import SwiftUI
 
 struct User: Codable {
@@ -15,20 +16,15 @@ struct User: Codable {
     let lastName: String
 }
 
-struct ExpenseItem: Identifiable, Codable {
-    var id = UUID()
-    let name: String
-    let type: String
-    let amount: Double
-}
-
 struct ContentView: View {
-    // Using @State here is just to keep the object alive
-    //   It is the @Observable macro that notices changes
-    //   and notifies SwiftUI views to update themselves
-    // IMPORTANT: Both the ContentView and the AddView
-    //   will share the same list of expense items
-    @State private var expenses = Expenses()
+    
+    // Step 5 - access our model context
+    // allows us to add things to the model context
+    // easily
+    @Environment(\.modelContext) var modelContext
+    
+    // query of all our expense items sorted by name
+    @Query(sort: \ExpenseItem.name) var items: [ExpenseItem]
     
     var body: some View {
         NavigationStack {
@@ -38,7 +34,7 @@ struct ContentView: View {
             // so it can tell what view has changed
             // when the data changes
             List {
-                ForEach(expenses.items) {item in
+                ForEach(items) { item in
                     HStack {
                         VStack(alignment: .leading) {
                             Text(item.name)
@@ -50,13 +46,12 @@ struct ContentView: View {
                             .foregroundStyle(item.amount <= 10 ? .green : (item.amount >= 11 && item.amount <= 99 ? .yellow : .red))
                     }
                 }
-
                 .onDelete(perform: removeItems)
             }
             .navigationTitle("iExpense")
             .toolbar {
                 NavigationLink {
-                    AddView(expenses: expenses)
+                    AddView()
                 } label: {
                     Label("Add Expense", systemImage: "plus")
                 }
@@ -65,7 +60,9 @@ struct ContentView: View {
     }
     
     func removeItems(at offsets: IndexSet) {
-        expenses.items.remove(atOffsets: offsets)
+        for offset in offsets {
+            modelContext.delete(items[offset])
+        }
     }
 }
 
