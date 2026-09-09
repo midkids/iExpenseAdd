@@ -11,12 +11,15 @@ import SwiftUI
 struct AddView: View {
     
     // IMPORTANT: This app was changed for
-    // Challenge #1 in Project 9, Day 4
-    // This is the Navigation App project
-    // Changes were made to use NavigationLink
-    // rather that a sheet to show the AddView
-    // The original code was saved in a project
-    // named iExpenseOriginal
+    // Challenge #1 in Project 12, Part 3
+    // This is the SwiftData App project
+    // Changes were made to use SwiftData
+    // rather than saving the data to a JSON
+    // file
+    // The original version was saved in a
+    // project named iExpenseOriginal and
+    // the successor version to the original
+    // was saved in iExpense
     
     
     // Reads the dismiss value from the environment

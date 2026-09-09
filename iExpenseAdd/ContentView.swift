@@ -11,11 +11,6 @@
 import SwiftData
 import SwiftUI
 
-struct User: Codable {
-    let firstName: String
-    let lastName: String
-}
-
 struct ContentView: View {
     
     // Step 5 - access our model context
@@ -28,11 +23,6 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            // This is a dynamic list. SwiftUI needs to know
-            // how to identify each single view
-            // inside there uniquely
-            // so it can tell what view has changed
-            // when the data changes
             List {
                 ForEach(items) { item in
                     HStack {
