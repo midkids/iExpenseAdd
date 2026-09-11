@@ -18,40 +18,26 @@ struct ContentView: View {
     // easily
     @Environment(\.modelContext) var modelContext
     
-    // query of all our expense items sorted by name
-    @Query(sort: \ExpenseItem.name) var items: [ExpenseItem]
+    @State private var showExpenses = 0
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(items) { item in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(item.name)
-                                .font(.headline)
-                            Text(item.type)
-                        }
-                        Spacer()
-                        Text(item.amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                            .foregroundStyle(item.amount <= 10 ? .green : (item.amount >= 11 && item.amount <= 99 ? .yellow : .red))
+            ExpenseListView(showExpenses: showExpenses)
+                .navigationTitle("iExpense")
+            .toolbar {
+                Menu("Expenses", systemImage: "eye") {
+                    Picker("Expenses", selection: $showExpenses) {
+                        Text("Show all expenses").tag(0)
+                        Text("Show business expenses").tag(1)
+                        Text("Show personal expenses").tag(2)
                     }
                 }
-                .onDelete(perform: removeItems)
-            }
-            .navigationTitle("iExpense")
-            .toolbar {
                 NavigationLink {
                     AddView()
                 } label: {
                     Label("Add Expense", systemImage: "plus")
                 }
             }
-        }
-    }
-    
-    func removeItems(at offsets: IndexSet) {
-        for offset in offsets {
-            modelContext.delete(items[offset])
         }
     }
 }
