@@ -27,6 +27,21 @@ struct ExpenseListView: View {
         default:
             predicate = nil
         }
+        // _items is the underlying property-wrapper storage
+        
+        // IMPORTANT: _items does not refer to the users
+        // array
+        // Rather the underscore indicates to Swift
+        // we are not trying to change the items array,
+        // but instead we are trying to change the
+        // underlying SwiftData query that produces
+        // the items array
+        // We will be making a new query here from the
+        // items data being passed in
+        // In other words, this query does not replace the
+        // [ExpenseItem] array directly
+        // It configures the SwiftData query that
+        // will produce the items array
         
         _items = Query(filter: predicate, sort: \ExpenseItem.name)
     }

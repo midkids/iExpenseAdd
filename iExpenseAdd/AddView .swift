@@ -10,27 +10,10 @@ import SwiftUI
 
 struct AddView: View {
     
-    // IMPORTANT: This app was changed for
-    // Challenge #1 in Project 12, Part 3
-    // This is the SwiftData App project
-    // Changes were made to use SwiftData
-    // rather than saving the data to a JSON
-    // file
-    // The original version was saved in a
-    // project named iExpenseOriginal and
-    // the successor version to the original
-    // was saved in iExpense
-    
-    
     // Reads the dismiss value from the environment
     // Need this statement to dismiss add expense
     // screen when the time is right
     // It controls the views environment
-    // The isPresented parameter,
-    //   which references the showingAddExpense variable
-    //   is linked to the environment
-    //   and is automatically turned to false
-    //   when the AdView view is dismissed
     // IMPORTANT: We do not have to specify type
     // It will call the dismiss function
     //   to dismiss the AddView view
